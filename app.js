@@ -54,7 +54,6 @@ let analyseData = {
         createFiles(fileList);
 
         setInterval(async () => {
-            console.log('Parse new data!');
 
             //Get data statistics
             const statistcsPrevDay = await binance.prevDay();
@@ -96,7 +95,6 @@ let analyseData = {
             //Merge all data
             fs.truncate(`${variables.path}/allCoins_merged.csv`, err => {
                 if (err) throw err;
-                console.log('Merged file is cleared!');
             })
 
             allCoins.forEach((coin) => {
@@ -115,8 +113,6 @@ let analyseData = {
 
             //Analyse last 10 data
             if (analyseData.counter >= 10) {
-                console.log('Data analysis!');
-                
                 allCoins.forEach(symbol => {
                     const symbolData = analyseData.symbols[symbol];
                     const keys = Object.keys(symbolData);
@@ -138,8 +134,6 @@ let analyseData = {
 
                 analyseData.counter = 0;
             }
-
-            console.log(analyseData);
         }, config.time * 1000);
     } catch (err) {
         console.error(err);
